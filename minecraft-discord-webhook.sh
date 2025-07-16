@@ -80,7 +80,13 @@ tail -n 0 -F $SERVERLOG/latest.log | while read LINE; do
     case $LINE in
 
     # match for chat message. If it's chat, we catch it first so we don't trigger false positives later
-    *\<*\>*) echo "Chat message" ;;
+    *\<*\>*) 
+        PLAYER=$(echo "$LINE" | sed -nE 's/.*<([^>]+)>.*/\1/p')
+        TEXT=$(echo "$LINE" | sed -nE 's/.*<[^>]+>\ (.*)/\1/p')
+        source $LANGFILE
+        echo "$PLAYER said: $TEXT. Sending webhook..."
+        webhook_compact "$PLAYER: $TEXT" 11223344 "https://minotar.net/helm/$PLAYER?v=$CACHE"
+        ;;
 
     # Consume any line that mentions a Villager so that we dont push their death through the webhook
     *EntityVillager* ) echo "Skipping Villager death" ;;
