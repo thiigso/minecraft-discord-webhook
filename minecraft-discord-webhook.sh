@@ -36,7 +36,7 @@ if [ -z "$BOTNAME" ]; then
     BOTNAME="Minecraft"
 fi
 if [ -z "$AVATAR" ]; then
-    AVATAR="https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/android-icon-192x192.png"
+    AVATAR="https://imagepng.org/wp-content/uploads/2017/08/minecraft-icone-icon.png"
 fi
 
 
